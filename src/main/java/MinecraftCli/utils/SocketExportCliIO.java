@@ -20,9 +20,12 @@ public final class SocketExportCliIO {
     private BufferedReader in;
     private BufferedWriter out;
 
+    private boolean isConnected=false;
+
     public boolean startListening(){
         try{
             socket=serverSocket.accept();
+            isConnected=true;
             isr=new InputStreamReader(socket.getInputStream());
             in=new BufferedReader(isr);
             osw=new OutputStreamWriter(socket.getOutputStream());
@@ -40,7 +43,7 @@ public final class SocketExportCliIO {
             osw.close();
             socket.close();
         }catch(IOException err){System.err.println(err);}
-
+        isConnected=false;
     }
 
     public String getLine(){
@@ -53,10 +56,13 @@ public final class SocketExportCliIO {
     }
 
     public void writeLine(String data){
-        try{
-            out.write(data);
-            out.newLine();
-            out.flush();
-        }catch(IOException err){}
+        if(isConnected) {
+            try {
+                out.write(data);
+                out.newLine();
+                out.flush();
+            } catch (IOException err) {
+            }
+        }
     }
 }

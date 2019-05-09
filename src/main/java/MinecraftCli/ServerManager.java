@@ -21,15 +21,15 @@ public final class ServerManager {
     public EventHub getEventHub() {
         return eventHub;
     }
-    private LineParserHub lineParserHub=new LineParserHub(this);
+    private LineParserHub lineParserHub=new LineParserHub(getEventHub());
     public LineParserHub getLineParserHub() {
         return lineParserHub;
     }
-    private PlayerHub playerHub=new PlayerHub(this);
+    private PlayerHub playerHub=new PlayerHub(getEventHub());
     public PlayerHub getPlayerHub() {
         return playerHub;
     }
-    public MixedIO mixedIO=new MixedIO();
+    public MixedIO mixedIO=new MixedIO(getEventHub());
     public MixedIO getMixedIO() {
         return mixedIO;
     }

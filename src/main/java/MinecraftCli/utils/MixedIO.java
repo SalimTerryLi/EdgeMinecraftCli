@@ -1,9 +1,14 @@
 package MinecraftCli.utils;
 
+import MinecraftCli.Event.EventHub;
+import MinecraftCli.Event.onNewCliLineArrivalEvent;
+
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class MixedIO implements Runnable {
+    private EventHub eventHub;
+
     private BlockingQueue<DataWithSourceInfo> buffer= new LinkedBlockingQueue<DataWithSourceInfo>();
     private SocketExportCliIO socketIO =new SocketExportCliIO(26545);
     private StandardIO stdIO =new StandardIO();
@@ -11,6 +16,10 @@ public class MixedIO implements Runnable {
     private StandardIOReadThread stdCli=new StandardIOReadThread();
 
     private boolean shouldExit = false;
+
+    public MixedIO(EventHub eventHub) {
+        this.eventHub = eventHub;
+    }
 
     public void run() {
         socketCli.start();
@@ -22,6 +31,7 @@ public class MixedIO implements Runnable {
                     stdIO.writeLine(tmp.data);
                 }else if(tmp.source==SourceType.StandardIOReadThread){
                     socketIO.writeLine(tmp.data);
+                    eventHub.publishEvent(new onNewCliLineArrivalEvent(tmp.data));
                 }
             }catch(InterruptedException err){}
         }
