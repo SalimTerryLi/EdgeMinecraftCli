@@ -21,7 +21,7 @@ public final class LineParserHub {
 
 }
 
-final class LineParserHubOnNewCliLineArrivalHandler extends EventHandler<onNewCliLineArrivalEvent>  {
+final class LineParserHubOnNewCliLineArrivalHandler implements EventHandler<onNewCliLineArrivalEvent>  {
     private LineParserHub hub;
 
     public LineParserHubOnNewCliLineArrivalHandler(LineParserHub hub) {
