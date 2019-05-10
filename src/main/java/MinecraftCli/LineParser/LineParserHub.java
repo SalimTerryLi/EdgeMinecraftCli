@@ -1,34 +1,36 @@
 package MinecraftCli.LineParser;
 
-import MinecraftCli.Event.Event;
 import MinecraftCli.Event.EventHandler;
 import MinecraftCli.Event.EventHub;
 import MinecraftCli.Event.onNewCliLineArrivalEvent;
-import MinecraftCli.ServerManager;
 
-public final class LineParserHub {
+import java.util.ArrayList;
+
+public final class LineParserHub implements EventHandler<onNewCliLineArrivalEvent> {
     private EventHub eventHub;
-    private LineParserHubOnNewCliLineArrivalHandler handler=new LineParserHubOnNewCliLineArrivalHandler(this);
+    private ArrayList<LineParser> lineParsers=new ArrayList<LineParser>();
 
     public LineParserHub(EventHub eventHub) {
         this.eventHub=eventHub;
-        this.eventHub.registerHandle(this.handler);
+        this.eventHub.registerHandle(this);
+        this.loadDefaultParsers();
     }
 
-    public void parseNewLine(String line){
-        System.err.println(line+ "parser");
+    private void parseNewLine(String line){
+        for (LineParser parser:lineParsers) {
+            parser.parse(line);
+        }
     }
 
-}
+    public void registerNewLineParser(LineParser lineParser){
+        this.lineParsers.add(lineParser);
+    }
 
-final class LineParserHubOnNewCliLineArrivalHandler implements EventHandler<onNewCliLineArrivalEvent>  {
-    private LineParserHub hub;
+    private void loadDefaultParsers(){
 
-    public LineParserHubOnNewCliLineArrivalHandler(LineParserHub hub) {
-        this.hub = hub;
     }
 
     public void onEventArrival(onNewCliLineArrivalEvent event) {
-        hub.parseNewLine(event.line);
+        this.parseNewLine(event.line);
     }
 }
