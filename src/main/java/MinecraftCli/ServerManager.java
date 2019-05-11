@@ -17,20 +17,10 @@ public final class ServerManager {
     private ServerManager(){
     }
 
-    private ServerInfoHolder serverInfo;
-    public ServerInfoHolder getServerInfo() {
-        return serverInfo;
-    }
-    public void newServerIdentified(){
-        serverInfo=new ServerInfoHolder();
-    }
     private EventHub eventHub=new EventHub(this);
     private LineParserHub lineParserHub=new LineParserHub(eventHub);
-    private PlayerHub playerHub=new PlayerHub(eventHub);
-    public MixedIO mixedIO=new MixedIO(eventHub);
-    public MixedIO getMixedIO() {
-        return mixedIO;
-    }
+    //private PlayerHub playerHub=new PlayerHub(eventHub);
+    private MixedIO mixedIO=new MixedIO(eventHub);
 
     public void start(){
         mixedIO.start();
