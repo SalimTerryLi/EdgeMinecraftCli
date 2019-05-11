@@ -27,7 +27,7 @@ public final class LineParserHub implements EventHandler<onNewCliLineArrivalEven
     }
 
     private void loadDefaultParsers(){
-
+        this.registerNewLineParser(new whenServerStartup(eventHub));
     }
 
     public void onEventArrival(onNewCliLineArrivalEvent event) {
