@@ -18,18 +18,9 @@ public final class ServerManager {
     }
 
     private EventHub eventHub=new EventHub(this);
-    public EventHub getEventHub() {
-        return eventHub;
-    }
-    private LineParserHub lineParserHub=new LineParserHub(getEventHub());
-    public LineParserHub getLineParserHub() {
-        return lineParserHub;
-    }
-    private PlayerHub playerHub=new PlayerHub(getEventHub());
-    public PlayerHub getPlayerHub() {
-        return playerHub;
-    }
-    public MixedIO mixedIO=new MixedIO(getEventHub());
+    private LineParserHub lineParserHub=new LineParserHub(eventHub);
+    private PlayerHub playerHub=new PlayerHub(eventHub);
+    public MixedIO mixedIO=new MixedIO(eventHub);
     public MixedIO getMixedIO() {
         return mixedIO;
     }
