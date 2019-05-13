@@ -8,26 +8,27 @@ import java.util.ArrayList;
 
 public final class LineParserHub implements EventHandler<onNewCliLineArrivalEvent> {
     private EventHub eventHub;
-    private ArrayList<LineParser> lineParsers=new ArrayList<LineParser>();
+    private ArrayList<LineParser> lineParsers = new ArrayList<LineParser>();
 
     public LineParserHub(EventHub eventHub) {
-        this.eventHub=eventHub;
+        this.eventHub = eventHub;
         this.eventHub.registerHandle(this);
         this.loadDefaultParsers();
     }
 
-    private void parseNewLine(String line){
-        for (LineParser parser:lineParsers) {
+    private void parseNewLine(String line) {
+        for (LineParser parser : lineParsers) {
             parser.parse(line);
         }
     }
 
-    public void registerNewLineParser(LineParser lineParser){
+    public void registerNewLineParser(LineParser lineParser) {
         this.lineParsers.add(lineParser);
     }
 
-    private void loadDefaultParsers(){
+    private void loadDefaultParsers() {
         this.registerNewLineParser(new whenServerStartup(eventHub));
+        this.registerNewLineParser(new whenPlayerActive(eventHub));
     }
 
     public void onEventArrival(onNewCliLineArrivalEvent event) {
