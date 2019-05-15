@@ -50,6 +50,10 @@ public class MixedIO implements Runnable {
         stdCli.stop();
     }
 
+    private enum SourceType {
+        SocketExportCliIOReadThread, StandardIOReadThread
+    }
+
     private class DataWithSourceInfo {
         public String data;
         public SourceType source;
@@ -58,10 +62,6 @@ public class MixedIO implements Runnable {
             this.data = data;
             this.source = source;
         }
-    }
-
-    private enum SourceType {
-        SocketExportCliIOReadThread, StandardIOReadThread
     }
 
     /* Reading data from socket connection and put into blocked queue. */

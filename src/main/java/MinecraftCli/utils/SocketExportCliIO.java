@@ -7,6 +7,14 @@ import java.net.Socket;
 
 public final class SocketExportCliIO {
 
+    private Socket socket;
+    private ServerSocket serverSocket;
+    private InputStreamReader isr;
+    private OutputStreamWriter osw;
+    private BufferedReader in;
+    private BufferedWriter out;
+    private boolean isConnected = false;
+
     public SocketExportCliIO(int portNumber) {
         try {
             serverSocket = new ServerSocket(portNumber, 1, InetAddress.getByName("localhost"));
@@ -14,15 +22,6 @@ public final class SocketExportCliIO {
             System.err.println(err);
         }
     }
-
-    private Socket socket;
-    private ServerSocket serverSocket;
-    private InputStreamReader isr;
-    private OutputStreamWriter osw;
-    private BufferedReader in;
-    private BufferedWriter out;
-
-    private boolean isConnected = false;
 
     public boolean startListening() {
         try {

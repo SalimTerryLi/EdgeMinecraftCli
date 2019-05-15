@@ -7,13 +7,17 @@ import java.util.Arrays;
 import java.util.List;
 
 public final class EventHub {
+    private List<EventHandler> handlers = new ArrayList<EventHandler>();
+
     public EventHub(ServerManager serverManager) {
     }
 
-    private List<EventHandler> handlers = new ArrayList<EventHandler>();
-
     public void registerHandle(EventHandler handler) {
         handlers.add(handler);
+    }
+
+    public void registerHandle(ArrayList<EventHandler> handlers) {
+        this.handlers.addAll(handlers);
     }
 
     public void publishEvent(final Event event) {

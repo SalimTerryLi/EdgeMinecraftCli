@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class whenPlayerActive extends LineParser {
+    private ArrayList<Player> unHandledPlayers = new ArrayList<Player>();
+
     public whenPlayerActive(EventHub eventHub) {
         super(eventHub);
     }
-
-    private ArrayList<Player> unHandledPlayers = new ArrayList<Player>();
 
     public boolean parse(String payload) {
         if (!ServerManager.getInstance().isServerReady()) {
