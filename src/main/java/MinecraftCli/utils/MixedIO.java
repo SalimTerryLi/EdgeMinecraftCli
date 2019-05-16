@@ -50,6 +50,10 @@ public class MixedIO implements Runnable {
         stdCli.stop();
     }
 
+    public void writeToServer(String lineData){
+        stdIO.writeLine(lineData);
+    }
+
     private enum SourceType {
         SocketExportCliIOReadThread, StandardIOReadThread
     }

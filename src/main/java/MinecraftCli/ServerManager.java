@@ -32,6 +32,12 @@ public final class ServerManager implements EventHandler<onNewServerIdentified> 
         return isServerReady;
     }
 
+    public void writeToServer(String lineOfData){
+        if(isServerReady){
+            mixedIO.writeToServer(lineOfData);
+        }
+    }
+
     private static class ServerManagerHolder {
         private static ServerManager instance = new ServerManager();
     }
