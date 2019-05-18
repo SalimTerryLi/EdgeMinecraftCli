@@ -31,7 +31,7 @@ public class whenPlayerActive extends LineParser {
             if (payload.contains("[Server thread/INFO]: ")) {
                 if (payload.contains(" joined the game")) {
                     for (Player player : unHandledPlayers) {
-                        if (player.name.equals(payload.substring(33, payload.length() - 16 - 1))) {
+                        if (player.name.equals(payload.substring(33, payload.length() - 16))) {
                             eventHub.publishEvent(new onPlayerLoggedInOut(player, onPlayerLoggedInOut.PlayerStatus.LoggedIn));
                         }
                     }
@@ -53,9 +53,9 @@ public class whenPlayerActive extends LineParser {
                             it.remove();
                         }
                     }
-                }
-            } else if (payload.contains(" lost connection:")) {
+                } else if (payload.contains(" lost connection:")) {
 
+                }
             }
         }
         return true;
